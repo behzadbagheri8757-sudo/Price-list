@@ -340,8 +340,6 @@ async function loadData() {
                 
                 const data = await response.json();
                 products = data.products || [];
-                products.sort((a, b) => a.name.localeCompare(b.name, 'fa'));
-                
                 renderBestsellers();
                 renderTable(products);
             } catch (e) {
