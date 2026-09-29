@@ -26,11 +26,19 @@
   --r-card:14px;
   --r-sheet:18px;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent
+}
+html{
+  -webkit-text-size-adjust:100%
+}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Tahoma,Arial,sans-serif;
-  background:var(--bg);color:var(--text);
+  background:var(--bg);
+  color:var(--text);
   line-height:1.4;
   font-size:16px;
   -webkit-font-smoothing:antialiased;
@@ -38,149 +46,268 @@ body{
   overscroll-behavior-y:none;
   min-height:100vh;
 }
-button,input{font-family:inherit;color:inherit}
-button{border:none;background:none;cursor:pointer;font-size:inherit}
-input{-webkit-appearance:none;appearance:none}
-
-/* ---------- App header ---------- */
+button,input{
+  font-family:inherit;
+  color:inherit
+}
+button{
+  border:none;
+  background:none;
+  cursor:pointer;
+  font-size:inherit
+}
+input{
+  -webkit-appearance:none;
+  appearance:none
+}
+/* ---------- Customer header ---------- */
 .app-header{
-  padding:calc(env(safe-area-inset-top,0px) + 30px) 24px 22px;
+  position:-webkit-sticky;
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:calc(env(safe-area-inset-top,0px) + 13px) 20px 13px;
   text-align:center;
-  user-select:none;-webkit-user-select:none;
+  background:#F7F7FA;
+  border-bottom:.5px solid var(--sep);
+  user-select:none;
+  -webkit-user-select:none;
   -webkit-touch-callout:none;
 }
-.brand-mark{display:block;width:46px;height:46px;margin:0 auto 14px}
-.app-title{
-  font-size:17px;font-weight:600;letter-spacing:-.25px;
-  line-height:1.35;color:var(--text);margin-bottom:5px;
+.header-brand{
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:-.35px;
+  line-height:1.3;
+  color:var(--text);
 }
-.app-datetime{
-  font-size:12.5px;color:var(--text-2);font-weight:400;
-  letter-spacing:-.1px;font-variant-numeric:tabular-nums;
+.header-subtitle{
+  font-size:13px;
+  font-weight:500;
+  color:var(--text-2);
+  margin-top:3px;
+  line-height:1.3;
 }
-
+.header-datetime{
+  font-size:12px;
+  font-weight:400;
+  color:#8E8E93;
+  margin-top:7px;
+  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
+}
 /* ---------- Lists ---------- */
 .list{
-  max-width:560px;margin:0 auto;
+  max-width:560px;
+  margin:0 auto;
   padding:0 0 calc(env(safe-area-inset-bottom,0px) + 40px);
 }
-.category{margin-top:24px}
-.category:first-child{margin-top:6px}
+.category{
+  margin-top:24px
+}
+.category:first-child{
+  margin-top:6px
+}
 .cat-title{
-  font-size:12.5px;font-weight:500;color:var(--text-2);
-  padding:0 30px 7px;letter-spacing:0;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--text-2);
+  padding:0 30px 7px;
+  letter-spacing:0;
 }
 .cat-list{
-  list-style:none;background:var(--surface);
-  margin:0 14px;border-radius:var(--r-card);
+  list-style:none;
+  background:var(--surface);
+  margin:0 14px;
+  border-radius:var(--r-card);
   overflow:hidden;
 }
 .row{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:14px;padding:13px 18px;min-height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:13px 18px;
+  min-height:56px;
   position:relative;
   transition:background-color .12s ease;
 }
 .row + .row::before{
-  content:'';position:absolute;top:0;right:18px;left:0;
-  height:.5px;background:var(--sep);
+  content:'';
+  position:absolute;
+  top:0;
+  right:18px;
+  left:0;
+  height:.5px;
+  background:var(--sep);
 }
-.row:active{background:var(--fill)}
-.row-main{flex:1;min-width:0}
+.row:active{
+  background:var(--fill)
+}
+.row-main{
+  flex:1;
+  min-width:0
+}
 .row-name{
-  font-size:16px;font-weight:500;color:var(--text);
-  line-height:1.35;overflow-wrap:anywhere;
+  font-size:16px;
+  font-weight:500;
+  color:var(--text);
+  line-height:1.35;
+  overflow-wrap:anywhere;
 }
 .row-unit{
-  font-size:12.5px;color:var(--text-2);margin-top:1px;
+  font-size:12.5px;
+  color:var(--text-2);
+  margin-top:1px;
 }
 .row-price{
-  flex-shrink:0;display:flex;align-items:baseline;gap:5px;
+  flex-shrink:0;
+  display:flex;
+  align-items:baseline;
+  gap:5px;
   white-space:nowrap;
 }
 .price-num{
-  font-size:17px;font-weight:600;color:var(--text);
-  font-variant-numeric:tabular-nums;letter-spacing:-.35px;
+  font-size:17px;
+  font-weight:600;
+  color:var(--text);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.35px;
 }
-.price-unit{font-size:11.5px;font-weight:500;color:var(--text-2)}
+.price-unit{
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--text-2)
+}
 .chevron{
-  flex-shrink:0;color:var(--text-3);
-  display:inline-flex;align-items:center;
+  flex-shrink:0;
+  color:var(--text-3);
+  display:inline-flex;
+  align-items:center;
 }
 .empty{
-  text-align:center;color:var(--text-2);
-  padding:60px 24px;font-size:14px;
+  text-align:center;
+  color:var(--text-2);
+  padding:60px 24px;
+  font-size:14px;
 }
-
 /* ---------- Admin nav ---------- */
 .admin-nav{
-  position:sticky;top:0;z-index:20;
+  position:sticky;
+  top:0;
+  z-index:20;
   padding:calc(env(safe-area-inset-top,0px) + 8px) 14px 8px;
   background:rgba(242,242,247,.88);
   -webkit-backdrop-filter:saturate(180%) blur(20px);
   backdrop-filter:saturate(180%) blur(20px);
   border-bottom:.5px solid var(--sep);
-  display:flex;align-items:center;gap:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
   max-width:100%;
 }
-.admin-nav[hidden]{display:none}
+.admin-nav[hidden]{
+  display:none
+}
 .nav-btn{
-  color:var(--blue);font-size:15.5px;font-weight:400;
-  padding:6px 8px;border-radius:8px;
+  color:var(--blue);
+  font-size:15.5px;
+  font-weight:400;
+  padding:6px 8px;
+  border-radius:8px;
 }
-.nav-btn:active{background:rgba(10,132,255,.1)}
+.nav-btn:active{
+  background:rgba(10,132,255,.1)
+}
 .nav-title{
-  flex:1;text-align:center;font-size:15px;font-weight:600;color:var(--text);
+  flex:1;
+  text-align:center;
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
 }
-
 /* ---------- Search ---------- */
 .search-wrap{
   padding:6px 14px 8px;
-  max-width:560px;margin:0 auto;
+  max-width:560px;
+  margin:0 auto;
 }
-.search-wrap[hidden]{display:none}
+.search-wrap[hidden]{
+  display:none
+}
 .search-input{
-  width:100%;height:36px;border-radius:10px;
-  background:var(--fill);border:none;
+  width:100%;
+  height:36px;
+  border-radius:10px;
+  background:var(--fill);
+  border:none;
   padding:0 34px 0 12px;
-  font-size:15px;color:var(--text);
+  font-size:15px;
+  color:var(--text);
   outline:none;
 }
-.search-input::placeholder{color:var(--text-3)}
-.search-icon{
-  position:absolute;right:26px;top:50%;transform:translateY(-50%);
-  color:var(--text-3);pointer-events:none;
+.search-input::placeholder{
+  color:var(--text-3)
 }
-
+.search-icon{
+  position:absolute;
+  right:26px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--text-3);
+  pointer-events:none;
+}
 /* ---------- Admin footer actions ---------- */
 .admin-footer{
-  max-width:560px;margin:24px auto 0;
+  max-width:560px;
+  margin:24px auto 0;
   padding:0 14px;
-  display:flex;gap:10px;justify-content:center;
+  display:flex;
+  gap:10px;
+  justify-content:center;
 }
-.admin-footer[hidden]{display:none}
+.admin-footer[hidden]{
+  display:none
+}
 .footer-btn{
-  flex:1;padding:12px 16px;border-radius:12px;
-  background:var(--surface);color:var(--text);
-  font-size:14px;font-weight:500;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  flex:1;
+  padding:12px 16px;
+  border-radius:12px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:14px;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
   border:.5px solid var(--sep);
 }
-.footer-btn:active{background:var(--fill)}
-
+.footer-btn:active{
+  background:var(--fill)
+}
 /* ---------- Overlays / Sheets ---------- */
 .overlay{
-  position:fixed;inset:0;z-index:100;
+  position:fixed;
+  inset:0;
+  z-index:100;
   background:rgba(0,0,0,.32);
-  display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
   transition:opacity .24s ease;
   -webkit-backdrop-filter:blur(2px);
   backdrop-filter:blur(2px);
 }
-.overlay.open{opacity:1;pointer-events:auto}
+.overlay.open{
+  opacity:1;
+  pointer-events:auto
+}
 .sheet{
-  width:100%;max-width:520px;
+  width:100%;
+  max-width:520px;
   background:var(--surface);
   border-radius:var(--r-sheet) var(--r-sheet) 0 0;
   padding:8px 0 calc(env(safe-area-inset-bottom,0px) + 20px);
@@ -188,96 +315,149 @@ input{-webkit-appearance:none;appearance:none}
   transition:transform .34s cubic-bezier(.32,.72,0,1);
   box-shadow:0 -10px 40px rgba(0,0,0,.14);
 }
-.overlay.open .sheet{transform:translateY(0)}
+.overlay.open .sheet{
+  transform:translateY(0)
+}
 .sheet-handle{
-  width:36px;height:5px;border-radius:3px;
-  background:var(--sep-2);margin:6px auto 12px;
+  width:36px;
+  height:5px;
+  border-radius:3px;
+  background:var(--sep-2);
+  margin:6px auto 12px;
 }
 .sheet-title{
-  font-size:16px;font-weight:600;text-align:center;
-  color:var(--text);margin-bottom:4px;
+  font-size:16px;
+  font-weight:600;
+  text-align:center;
+  color:var(--text);
+  margin-bottom:4px;
 }
 .sheet-sub{
-  font-size:13px;color:var(--text-2);text-align:center;
+  font-size:13px;
+  color:var(--text-2);
+  text-align:center;
   margin-bottom:20px;
 }
-
 /* ---------- PIN ---------- */
 .pin-dots{
-  display:flex;gap:18px;justify-content:center;
-  margin:6px 0 24px;padding:0 24px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  margin:6px 0 24px;
+  padding:0 24px;
 }
 .pin-dot{
-  width:13px;height:13px;border-radius:50%;
+  width:13px;
+  height:13px;
+  border-radius:50%;
   border:1.5px solid var(--text-3);
   transition:background-color .12s ease,border-color .12s ease;
 }
-.pin-dot.filled{background:var(--text);border-color:var(--text)}
+.pin-dot.filled{
+  background:var(--text);
+  border-color:var(--text)
+}
 .pin-error{
-  text-align:center;color:var(--danger);font-size:13px;
-  min-height:18px;margin-bottom:10px;
+  text-align:center;
+  color:var(--danger);
+  font-size:13px;
+  min-height:18px;
+  margin-bottom:10px;
 }
 @keyframes shake{
   0%,100%{transform:translateX(0)}
   20%,60%{transform:translateX(-8px)}
   40%,80%{transform:translateX(8px)}
 }
-.pin-dots.shake{animation:shake .4s ease}
-
+.pin-dots.shake{
+  animation:shake .4s ease
+}
 .keypad{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;padding:0 20px;max-width:320px;margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:0 20px;
+  max-width:320px;
+  margin:0 auto;
 }
 .key{
-  height:56px;border-radius:14px;
-  background:var(--fill);color:var(--text);
-  font-size:23px;font-weight:400;
-  display:grid;place-items:center;
+  height:56px;
+  border-radius:14px;
+  background:var(--fill);
+  color:var(--text);
+  font-size:23px;
+  font-weight:400;
+  display:grid;
+  place-items:center;
   transition:background-color .1s ease;
   font-variant-numeric:tabular-nums;
 }
-.key:active{background:#DEDEE3}
-.key.del{font-size:18px}
+.key:active{
+  background:#DEDEE3
+}
+.key.del{
+  font-size:18px
+}
 .pin-cancel{
-  display:block;width:100%;text-align:center;
-  color:var(--blue);font-size:15px;
+  display:block;
+  width:100%;
+  text-align:center;
+  color:var(--blue);
+  font-size:15px;
   padding:16px 0 4px;
 }
-
 /* ---------- Edit sheet ---------- */
 .sheet-head{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:0 14px 14px;
   border-bottom:.5px solid var(--sep);
 }
 .sheet-head h2{
-  font-size:16px;font-weight:600;color:var(--text);
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
 }
 .sheet-action{
-  color:var(--blue);font-size:16px;font-weight:400;
+  color:var(--blue);
+  font-size:16px;
+  font-weight:400;
   padding:6px 4px;
 }
-.sheet-action.strong{font-weight:600}
-.sheet-action:active{opacity:.55}
+.sheet-action.strong{
+  font-weight:600
+}
+.sheet-action:active{
+  opacity:.55
+}
 .form{
   padding:10px 16px 0;
 }
 .form label{
   display:block;
-  font-size:12.5px;color:var(--text-2);
-  margin:14px 4px 6px;font-weight:500;
+  font-size:12.5px;
+  color:var(--text-2);
+  margin:14px 4px 6px;
+  font-weight:500;
 }
 .form input{
   width:100%;
   padding:12px 14px;
   background:var(--fill);
-  border:none;border-radius:10px;
-  font-size:16px;color:var(--text);
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  color:var(--text);
   outline:none;
   transition:box-shadow .15s ease;
 }
-.form input:focus{box-shadow:0 0 0 3px rgba(10,132,255,.18)}
-.form input::placeholder{color:var(--text-3)}
+.form input:focus{
+  box-shadow:0 0 0 3px rgba(10,132,255,.18)
+}
+.form input::placeholder{
+  color:var(--text-3)
+}
 .price-input{
   font-size:22px !important;
   font-weight:600 !important;
@@ -286,173 +466,186 @@ input{-webkit-appearance:none;appearance:none}
   letter-spacing:0;
 }
 .delete-btn{
-  display:block;width:calc(100% - 32px);
+  display:block;
+  width:calc(100% - 32px);
   margin:20px 16px 0;
   padding:14px;
   border-radius:12px;
   background:rgba(255,59,48,.08);
   color:var(--danger);
-  font-size:15.5px;font-weight:500;
+  font-size:15.5px;
+  font-weight:500;
   text-align:center;
 }
-.delete-btn:active{background:rgba(255,59,48,.15)}
-.delete-btn[hidden]{display:none}
-
+.delete-btn:active{
+  background:rgba(255,59,48,.15)
+}
+.delete-btn[hidden]{
+  display:none
+}
 /* ---------- Toast ---------- */
 .toast{
-  position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);
+  position:fixed;
+  left:50%;
+  bottom:calc(env(safe-area-inset-bottom,0px) + 22px);
   transform:translateX(-50%) translateY(90px);
   background:rgba(28,28,30,.94);
-  color:#fff;font-size:13.5px;
-  padding:10px 18px;border-radius:12px;
-  z-index:200;opacity:0;
+  color:#fff;
+  font-size:13.5px;
+  padding:10px 18px;
+  border-radius:12px;
+  z-index:200;
+  opacity:0;
   transition:opacity .22s ease,transform .28s cubic-bezier(.32,.72,0,1);
   pointer-events:none;
   -webkit-backdrop-filter:blur(20px);
   backdrop-filter:blur(20px);
 }
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.error{background:rgba(255,59,48,.96)}
-
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0)
+}
+.toast.error{
+  background:rgba(255,59,48,.96)
+}
 /* ---------- Loading ---------- */
 .loading{
-  text-align:center;padding:70px 20px;
-  color:var(--text-2);font-size:14px;
+  text-align:center;
+  padding:70px 20px;
+  color:var(--text-2);
+  font-size:14px;
 }
-
 @media (max-width:380px){
-  .app-title{font-size:16px}
-  .row{padding:12px 15px}
-  .row-name{font-size:15.5px}
-  .price-num{font-size:16.5px}
+  .header-brand{
+    font-size:17px
+  }
+  .row{
+    padding:12px 15px
+  }
+  .row-name{
+    font-size:15.5px
+  }
+  .price-num{
+    font-size:16.5px
+  }
 }
 </style>
 </head>
 <body>
-
 <!-- ============== CUSTOMER VIEW ============== -->
 <div id="customerView">
   <header class="app-header" id="appHeader">
-    <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
-      <defs>
-        <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#DCAE52"/>
-          <stop offset="1" stop-color="#946B14"/>
-        </linearGradient>
-      </defs>
-      <rect x="1" y="1" width="46" height="46" rx="13" fill="url(#bgGrad)"/>
-      <circle cx="18.5" cy="18.5" r="3.4" fill="#FFFFFF" opacity="0.96"/>
-      <circle cx="29.5" cy="18.5" r="3.4" fill="#FFFFFF" opacity="0.96"/>
-      <circle cx="24"   cy="28.5" r="3.4" fill="#FFFFFF" opacity="0.96"/>
-    </svg>
-    <h1 class="app-title">لیست قیمت حبوبات و خشکبار باقری</h1>
-    <div class="app-datetime" id="dateTime">—</div>
+    <h1 class="header-brand">حبوبات و خشکبار باقری</h1>
+    <div class="header-subtitle">لیست قیمت</div>
+    <div class="header-datetime" id="dateTime">—</div>
   </header>
   <main class="list" id="list" aria-live="polite">
     <div class="loading">در حال بارگذاری…</div>
   </main>
 </div>
-
 <!-- ============== ADMIN NAV ============== -->
 <div class="admin-nav" id="adminNav" hidden>
   <button class="nav-btn" id="adminExit">پایان</button>
   <div class="nav-title">مدیریت لیست</div>
   <button class="nav-btn" id="adminAdd">افزودن</button>
 </div>
-
 <div class="search-wrap" id="searchWrap" hidden style="position:relative">
   <input type="search" id="searchInput" class="search-input" placeholder="جستجو…">
-  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="7"/>
+    <path d="m20 20-3.5-3.5"/>
+  </svg>
 </div>
-
 <div class="admin-footer" id="adminFooter" hidden>
   <button class="footer-btn" id="btnImport">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5 5 5-5"/><path d="M12 14V3"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <path d="M7 9l5 5 5-5"/>
+      <path d="M12 14V3"/>
+    </svg>
     ورود فایل
   </button>
   <button class="footer-btn" id="btnExport">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <path d="M17 8l-5-5-5 5"/>
+      <path d="M12 3v12"/>
+    </svg>
     خروجی فایل
   </button>
 </div>
 <input type="file" id="importFile" accept="application/json,.json" hidden>
-
 <!-- ============== PIN SHEET ============== -->
 <div class="overlay" id="pinOverlay">
   <div class="sheet" role="dialog" aria-modal="true">
     <div class="sheet-handle"></div>
-    <h2 class="sheet-title">ورود به حالت مدیریت</h2>
-    <p class="sheet-sub">رمز چهار رقمی را وارد کنید</p>
-    <div class="pin-dots" id="pinDots">
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
-      <span class="pin-dot"></span>
-    </div>
-    <div class="pin-error" id="pinError"></div>
-    <div class="keypad" id="keypad">
-      <button class="key" data-k="1">۱</button>
-      <button class="key" data-k="2">۲</button>
-      <button class="key" data-k="3">۳</button>
-      <button class="key" data-k="4">۴</button>
-      <button class="key" data-k="5">۵</button>
-      <button class="key" data-k="6">۶</button>
-      <button class="key" data-k="7">۷</button>
-      <button class="key" data-k="8">۸</button>
-      <button class="key" data-k="9">۹</button>
-      <button class="key" data-k="" aria-hidden="true" style="visibility:hidden"></button>
-      <button class="key" data-k="0">۰</button>
-      <button class="key del" data-k="del" aria-label="حذف">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5H9L3 12l6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/><path d="m14 9-6 6M8 9l6 6"/></svg>
-      </button>
-    </div>
-    <button class="pin-cancel" id="pinCancel">انصراف</button>
+<h2 class="sheet-title">ورود به حالت مدیریت</h2>
+<p class="sheet-sub">رمز چهار رقمی را وارد کنید</p>
+<div class="pin-dots" id="pinDots">
+  <span class="pin-dot"></span>
+  <span class="pin-dot"></span>
+  <span class="pin-dot"></span>
+  <span class="pin-dot"></span>
+</div>
+<div class="pin-error" id="pinError"></div>
+<div class="keypad" id="keypad">
+  <button class="key" data-k="1">۱</button>
+  <button class="key" data-k="2">۲</button>
+  <button class="key" data-k="3">۳</button>
+  <button class="key" data-k="4">۴</button>
+  <button class="key" data-k="5">۵</button>
+  <button class="key" data-k="6">۶</button>
+  <button class="key" data-k="7">۷</button>
+  <button class="key" data-k="8">۸</button>
+  <button class="key" data-k="9">۹</button>
+  <button class="key" data-k="" aria-hidden="true" style="visibility:hidden"></button>
+  <button class="key" data-k="0">۰</button>
+  <button class="key del" data-k="del" aria-label="حذف">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 5H9L3 12l6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/>
+      <path d="m14 9-6 6M8 9l6 6"/>
+    </svg>
+  </button>
+</div>
+<button class="pin-cancel" id="pinCancel">انصراف</button>
   </div>
 </div>
-
 <!-- ============== EDIT SHEET ============== -->
 <div class="overlay" id="editOverlay">
   <div class="sheet" role="dialog" aria-modal="true">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <button class="sheet-action" id="editCancel">انصراف</button>
-      <h2 id="editTitle">افزودن محصول</h2>
-      <button class="sheet-action strong" id="editSave">ذخیره</button>
-    </div>
-    <form class="form" id="editForm" autocomplete="off">
-      <label for="fName">نام محصول</label>
-      <input id="fName" type="text" enterkeyhint="done">
-
-      <label for="fPrice">قیمت (تومان)</label>
-      <input id="fPrice" class="price-input" type="text" inputmode="numeric" enterkeyhint="done" placeholder="۰">
-
-      <label for="fUnit">واحد</label>
-      <input id="fUnit" type="text" placeholder="مثال: کیلوگرم" enterkeyhint="done">
-
-      <label for="fCategory">دسته‌بندی</label>
-      <input id="fCategory" type="text" list="categoryList" enterkeyhint="done">
-      <datalist id="categoryList"></datalist>
-
-      <label for="fDesc">توضیحات (اختیاری)</label>
-      <input id="fDesc" type="text" enterkeyhint="done">
-
-      <button type="button" class="delete-btn" id="editDelete" hidden>حذف محصول</button>
-    </form>
+<div class="sheet-handle"></div>
+<div class="sheet-head">
+  <button class="sheet-action" id="editCancel">انصراف</button>
+  <h2 id="editTitle">افزودن محصول</h2>
+  <button class="sheet-action strong" id="editSave">ذخیره</button>
+</div>
+<form class="form" id="editForm" autocomplete="off">
+  <label for="fName">نام محصول</label>
+  <input id="fName" type="text" enterkeyhint="done">
+  <label for="fPrice">قیمت (تومان)</label>
+  <input id="fPrice" class="price-input" type="text" inputmode="numeric" enterkeyhint="done" placeholder="۰">
+  <label for="fUnit">واحد</label>
+  <input id="fUnit" type="text" placeholder="مثال: کیلوگرم" enterkeyhint="done">
+  <label for="fCategory">دسته‌بندی</label>
+  <input id="fCategory" type="text" list="categoryList" enterkeyhint="done">
+  <datalist id="categoryList"></datalist>
+  <label for="fDesc">توضیحات (اختیاری)</label>
+  <input id="fDesc" type="text" enterkeyhint="done">
+  <button type="button" class="delete-btn" id="editDelete" hidden>
+    حذف محصول
+  </button>
+</form>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
 /* =====================================================================
    BAGHERI PRICE LIST — single-file app
    Data source of truth on device: localStorage[STORAGE_KEY]
    ===================================================================== */
-
 const STORAGE_KEY = 'pricelist_items_v1';
 const ADMIN_PIN   = '1234';
 const CATEGORY_ORDER = ['حبوبات', 'خشکبار', 'کشمش'];
-
 /* -------- Seed data (initial content only; not logic) ------------- */
 const SEED = [
   /* حبوبات */
@@ -466,7 +659,7 @@ const SEED = [
   { name:'لوبیا کشاورزی',     category:'حبوبات', unit:'کیلوگرم', price:408000, description:'' },
   { name:'سویا فلّه سبحان',   category:'حبوبات', unit:'کیلوگرم', price:242000, description:'' },
   /* کشمش */
-  { name:'کشمش پلویی',        category:'کشمش',  unit:'کارتن ۹ کیلویی', price:4790000, description:'' },
+  { name:'کشمش پلویی',        category:'کشمش', unit:'کارتن ۹ کیلویی', price:4790000, description:'' },
   /* خشکبار */
   { name:'ذرت پفیلا برزیلی',  category:'خشکبار', unit:'کیلوگرم', price:305000, description:'' },
   { name:'زرشک پفکی',         category:'خشکبار', unit:'کیلوگرم', price:839000, description:'' },
@@ -475,20 +668,17 @@ const SEED = [
   { name:'آلو بخارا حاج حسنی',category:'خشکبار', unit:'نیم کیلوگرم', price:520000, description:'' },
   { name:'تخمه کدو دوآتیشه',  category:'خشکبار', unit:'کیلوگرم', price:845000, description:'' },
   { name:'تخمه دورسفید ویژه', category:'خشکبار', unit:'کیلوگرم', price:650000, description:'' },
-  { name:'تخمه کدو نمکی',     category:'خشکبار', unit:'کیلوگرم', price:840000, description:'' },
+  { name:'تخمه کدو نمکی',     category:'خشکبار', unit:'کیلوگرم', price:840000, description:'' }
 ];
-
 /* ------------------------- State ---------------------------------- */
-let items = [];                 // array of product objects
+let items = [];
 let isAdmin = false;
 let editingIndex = -1;
 let query = '';
 let pinBuffer = '';
-
 /* ------------------------- DOM refs ------------------------------- */
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-
 const listEl        = $('#list');
 const dateTimeEl    = $('#dateTime');
 const appHeader     = $('#appHeader');
@@ -519,11 +709,9 @@ const fCategory     = $('#fCategory');
 const fDesc         = $('#fDesc');
 const categoryList  = $('#categoryList');
 const toastEl       = $('#toast');
-
 /* ------------------------- Utilities ------------------------------ */
 const FA = '۰۱۲۳۴۵۶۷۸۹';
 const AR = '٠١٢٣٤٥٦٧٨٩';
-
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, c => (
     {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
@@ -535,11 +723,14 @@ function toFaDigits(s){
 function normalize(s){
   if (!s) return '';
   return String(s)
-    .replace(/[يى]/g,'ی').replace(/ك/g,'ک')
-    .replace(/[ۀهٔ]/g,'ه').replace(/[أإآا]/g,'ا')
+    .replace(/[يى]/g,'ی')
+    .replace(/ك/g,'ک')
+    .replace(/[ۀهٔ]/g,'ه')
+    .replace(/[أإآا]/g,'ا')
     .replace(/[\u064B-\u065F\u0670]/g,'')
     .replace(/\u200c/g,' ')
-    .toLowerCase().trim();
+    .toLowerCase()
+    .trim();
 }
 function digitsOnly(str){
   return String(str ?? '')
@@ -547,7 +738,9 @@ function digitsOnly(str){
     .replace(/[٠-٩]/g, d => AR.indexOf(d))
     .replace(/[^\d]/g, '');
 }
-function parsePrice(str){ return Number(digitsOnly(str)) || 0; }
+function parsePrice(str){
+  return Number(digitsOnly(str)) || 0;
+}
 function formatPrice(n){
   return toFaDigits(Number(n).toLocaleString('en-US'));
 }
@@ -556,32 +749,53 @@ function formatPriceInput(str){
   if (!d) return '';
   return toFaDigits(Number(d).toLocaleString('en-US'));
 }
-
 /* ------------------------- Toast ---------------------------------- */
 let toastTimer;
-function toast(msg, type=''){
+function toast(msg,type=''){
   toastEl.textContent = msg;
   toastEl.className = 'toast show' + (type ? ' ' + type : '');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  toastTimer = setTimeout(
+    () => toastEl.classList.remove('show'),
+    2200
+  );
 }
-
 /* ------------------------- Date & time ---------------------------- */
+/*
+   ساعت فقط یک بار در شروع نمایش داده می‌شود و سپس هر 30 ثانیه
+   وضعیت دقیقه را بررسی می‌کند.
+   Intl formatterها فقط یک بار ساخته می‌شوند.
+*/
+const dateFmt = new Intl.DateTimeFormat('fa-IR',{
+  weekday:'long',
+  day:'numeric',
+  month:'long',
+  year:'numeric'
+});
+const timeFmt = new Intl.DateTimeFormat('fa-IR',{
+  hour:'2-digit',
+  minute:'2-digit',
+  hour12:false
+});
+let lastMinuteKey = '';
 function updateDateTime(){
   try{
     const d = new Date();
-    const dateFmt = new Intl.DateTimeFormat('fa-IR', {
-      weekday:'long', day:'numeric', month:'long'
-    });
-    const timeFmt = new Intl.DateTimeFormat('fa-IR', {
-      hour:'2-digit', minute:'2-digit', hour12:false
-    });
-    dateTimeEl.textContent = dateFmt.format(d) + ' · ' + timeFmt.format(d);
+    const minuteKey =
+      d.getFullYear() + '-' +
+      d.getMonth() + '-' +
+      d.getDate() + '-' +
+      d.getHours() + '-' +
+      d.getMinutes();
+    if (minuteKey === lastMinuteKey) return;
+    lastMinuteKey = minuteKey;
+    dateTimeEl.textContent =
+      dateFmt.format(d) + ' • ' + timeFmt.format(d);
   }catch(e){
-    dateTimeEl.textContent = new Date().toLocaleString('fa-IR');
+    dateTimeEl.textContent =
+      new Date().toLocaleString('fa-IR');
   }
 }
-
 /* ------------------------- Persistence ---------------------------- */
 function loadItems(){
   try{
@@ -593,36 +807,37 @@ function loadItems(){
         return;
       }
     }
-  }catch(e){ /* fall through */ }
+  }catch(e){
+    /* fall through */
+  }
   items = SEED.map(normalizeItem);
   saveItems();
 }
 function normalizeItem(x){
   return {
-    name:        String(x.name || '').trim(),
-    category:    String(x.category || '').trim() || 'سایر',
-    unit:        String(x.unit || '').trim(),
-    price:       Number(x.price) || 0,
-    description: String(x.description || '').trim()
+    name:String(x.name || '').trim(),
+    category:String(x.category || '').trim() || 'سایر',
+    unit:String(x.unit || '').trim(),
+    price:Number(x.price) || 0,
+    description:String(x.description || '').trim()
   };
 }
 function saveItems(){
   try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(items)
+    );
   }catch(e){
-    toast('ذخیره‌سازی ناموفق', 'error');
+    toast('ذخیره‌سازی ناموفق','error');
   }
 }
-
 /* ------------------------- Rendering ------------------------------ */
 function render(){
-  // Category order helper
   const catRank = c => {
     const i = CATEGORY_ORDER.indexOf(c);
     return i === -1 ? 999 : i;
   };
-
-  // Filter by search
   const q = normalize(query);
   const visible = q
     ? items.filter(it =>
@@ -631,57 +846,68 @@ function render(){
         normalize(it.description).includes(q)
       )
     : items;
-
   if (!visible.length){
-    listEl.innerHTML = `<div class="empty">${q ? 'موردی یافت نشد' : 'لیست خالی است'}</div>`;
+    listEl.innerHTML =
+      `<div class="empty">${
+        q ? 'موردی یافت نشد' : 'لیست خالی است'
+      }</div>`;
     return;
   }
-
-  // Group by category
   const groups = new Map();
   visible.forEach(it => {
     const c = it.category || 'سایر';
-    if (!groups.has(c)) groups.set(c, []);
+    if (!groups.has(c)){
+      groups.set(c,[]);
+    }
     groups.get(c).push(it);
   });
-
   const sortedCats = [...groups.keys()].sort((a,b) => {
-    const ra = catRank(a), rb = catRank(b);
+    const ra = catRank(a);
+    const rb = catRank(b);
     if (ra !== rb) return ra - rb;
-    return String(a).localeCompare(String(b), 'fa');
+    return String(a).localeCompare(String(b),'fa');
   });
-
   let html = '';
   sortedCats.forEach(cat => {
     html += `<section class="category">`;
-    html += `<h2 class="cat-title">${esc(cat)}</h2>`;
+    html +=
+      `<h2 class="cat-title">${esc(cat)}</h2>`;
     html += `<ul class="cat-list">`;
     groups.get(cat).forEach(it => {
       const idx = items.indexOf(it);
-      html += renderRow(it, idx);
+      html += renderRow(it,idx);
     });
     html += `</ul></section>`;
   });
-
   listEl.innerHTML = html;
-
-  // Populate datalist of categories for the edit form
-  const allCats = [...new Set(items.map(i => i.category).filter(Boolean))];
-  categoryList.innerHTML = allCats.map(c => `<option value="${esc(c)}">`).join('');
+  const allCats = [
+    ...new Set(
+      items.map(i => i.category).filter(Boolean)
+    )
+  ];
+  categoryList.innerHTML =
+    allCats
+      .map(c => `<option value="${esc(c)}">`)
+      .join('');
 }
-
-function renderRow(it, idx){
+function renderRow(it,idx){
   const adminCls = isAdmin ? ' row-admin' : '';
   const chevron = isAdmin
     ? `<span class="chevron" aria-hidden="true">
-         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1 1.5 7 6 13"/></svg>
+         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+           <path d="M6 1 1.5 7 6 13"/>
+         </svg>
        </span>`
     : '';
   return `
     <li class="row${adminCls}" data-idx="${idx}">
       <div class="row-main">
         <div class="row-name">${esc(it.name || '—')}</div>
-        ${it.unit ? `<div class="row-unit">${esc(it.unit)}</div>` : ''}
+        ${
+          it.unit
+            ? `<div class="row-unit">${esc(it.unit)}</div>`
+            : ''
+        }
       </div>
       <div class="row-price">
         <span class="price-num">${formatPrice(it.price)}</span>
@@ -690,7 +916,6 @@ function renderRow(it, idx){
       ${chevron}
     </li>`;
 }
-
 /* ------------------------- Admin mode ----------------------------- */
 function enterAdmin(){
   isAdmin = true;
@@ -709,22 +934,22 @@ function exitAdmin(){
   searchWrap.hidden = true;
   render();
 }
-
 /* ------------------------- 5-tap secret --------------------------- */
 let tapCount = 0;
 let tapTimer = null;
-appHeader.addEventListener('click', () => {
+appHeader.addEventListener('click',() => {
   if (isAdmin) return;
   tapCount++;
   clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => { tapCount = 0; }, 1600);
+  tapTimer = setTimeout(() => {
+    tapCount = 0;
+  },1600);
   if (tapCount >= 5){
     tapCount = 0;
     clearTimeout(tapTimer);
     openPinSheet();
   }
 });
-
 /* ------------------------- PIN sheet ------------------------------ */
 function openPinSheet(){
   pinBuffer = '';
@@ -739,8 +964,14 @@ function closePinSheet(){
   renderPinDots();
 }
 function renderPinDots(){
-  const dots = pinDotsEl.querySelectorAll('.pin-dot');
-  dots.forEach((d, i) => d.classList.toggle('filled', i < pinBuffer.length));
+  const dots =
+    pinDotsEl.querySelectorAll('.pin-dot');
+  dots.forEach((d,i) =>
+    d.classList.toggle(
+      'filled',
+      i < pinBuffer.length
+    )
+  );
 }
 function pinAppend(digit){
   if (pinBuffer.length >= 4) return;
@@ -748,105 +979,147 @@ function pinAppend(digit){
   pinErrorEl.textContent = '';
   renderPinDots();
   if (pinBuffer.length === 4){
-    setTimeout(checkPin, 120);
+    setTimeout(checkPin,120);
   }
 }
 function pinBackspace(){
   if (!pinBuffer.length) return;
-  pinBuffer = pinBuffer.slice(0, -1);
+  pinBuffer =
+    pinBuffer.slice(0,-1);
   renderPinDots();
 }
 function checkPin(){
   if (pinBuffer === ADMIN_PIN){
     closePinSheet();
-    setTimeout(enterAdmin, 120);
-  } else {
+    setTimeout(enterAdmin,120);
+  }else{
     pinDotsEl.classList.add('shake');
-    pinErrorEl.textContent = 'رمز نادرست است';
+    pinErrorEl.textContent =
+      'رمز نادرست است';
     setTimeout(() => {
       pinDotsEl.classList.remove('shake');
       pinBuffer = '';
       renderPinDots();
-    }, 420);
+    },420);
   }
 }
-keypad.addEventListener('click', e => {
-  const btn = e.target.closest('.key');
+keypad.addEventListener('click',e => {
+  const btn =
+    e.target.closest('.key');
   if (!btn) return;
   const k = btn.dataset.k;
-  if (k === 'del') pinBackspace();
-  else if (k) pinAppend(k);
+  if (k === 'del'){
+    pinBackspace();
+  }else if(k){
+    pinAppend(k);
+  }
 });
-pinCancel.addEventListener('click', closePinSheet);
-pinOverlay.addEventListener('click', e => {
-  if (e.target === pinOverlay) closePinSheet();
+pinCancel.addEventListener(
+  'click',
+  closePinSheet
+);
+pinOverlay.addEventListener('click',e => {
+  if (e.target === pinOverlay){
+    closePinSheet();
+  }
 });
-
 /* ------------------------- Edit sheet ----------------------------- */
 function openEdit(idx){
   editingIndex = idx;
   if (idx >= 0){
     const it = items[idx];
-    editTitle.textContent = 'ویرایش محصول';
-    fName.value     = it.name;
-    fPrice.value    = it.price ? formatPrice(it.price) : '';
-    fUnit.value     = it.unit || '';
-    fCategory.value = it.category || '';
-    fDesc.value     = it.description || '';
+    editTitle.textContent =
+      'ویرایش محصول';
+    fName.value =
+      it.name;
+    fPrice.value =
+      it.price ? formatPrice(it.price) : '';
+    fUnit.value =
+      it.unit || '';
+    fCategory.value =
+      it.category || '';
+    fDesc.value =
+      it.description || '';
     editDelete.hidden = false;
-  } else {
-    editTitle.textContent = 'افزودن محصول';
+  }else{
+    editTitle.textContent =
+      'افزودن محصول';
     editForm.reset();
     editDelete.hidden = true;
   }
   editOverlay.classList.add('open');
-  // Focus: for edit → price field (fast price change); for add → name
   setTimeout(() => {
     if (idx >= 0){
       fPrice.focus();
-      try{ fPrice.setSelectionRange(fPrice.value.length, fPrice.value.length); }catch(e){}
-    } else {
+      try{
+        fPrice.setSelectionRange(
+          fPrice.value.length,
+          fPrice.value.length
+        );
+      }catch(e){}
+    }else{
       fName.focus();
     }
-  }, 320);
+  },320);
 }
 function closeEdit(){
   editOverlay.classList.remove('open');
   editingIndex = -1;
 }
-editCancel.addEventListener('click', closeEdit);
-editOverlay.addEventListener('click', e => {
-  if (e.target === editOverlay) closeEdit();
+editCancel.addEventListener(
+  'click',
+  closeEdit
+);
+editOverlay.addEventListener('click',e => {
+  if (e.target === editOverlay){
+    closeEdit();
+  }
 });
-
-// Live price formatting
-fPrice.addEventListener('input', () => {
-  const formatted = formatPriceInput(fPrice.value);
+/* Live price formatting */
+fPrice.addEventListener('input',() => {
+  const formatted =
+    formatPriceInput(fPrice.value);
   if (fPrice.value !== formatted){
-    const atEnd = fPrice.selectionStart === fPrice.value.length;
+    const atEnd =
+      fPrice.selectionStart ===
+      fPrice.value.length;
     fPrice.value = formatted;
     if (atEnd){
-      try{ fPrice.setSelectionRange(formatted.length, formatted.length); }catch(e){}
+      try{
+        fPrice.setSelectionRange(
+          formatted.length,
+          formatted.length
+        );
+      }catch(e){}
     }
   }
 });
-
-editSave.addEventListener('click', () => {
-  const name = fName.value.trim();
-  if (!name){ toast('نام محصول را وارد کنید', 'error'); fName.focus(); return; }
-
+editSave.addEventListener('click',() => {
+  const name =
+    fName.value.trim();
+  if (!name){
+    toast(
+      'نام محصول را وارد کنید',
+      'error'
+    );
+    fName.focus();
+    return;
+  }
   const data = {
     name,
-    category:    fCategory.value.trim() || 'سایر',
-    unit:        fUnit.value.trim(),
-    price:       parsePrice(fPrice.value),
-    description: fDesc.value.trim()
+    category:
+      fCategory.value.trim() || 'سایر',
+    unit:
+      fUnit.value.trim(),
+    price:
+      parsePrice(fPrice.value),
+    description:
+      fDesc.value.trim()
   };
-
   if (editingIndex >= 0){
     items[editingIndex] = data;
     toast('ذخیره شد');
-  } else {
+  }else{
     items.push(data);
     toast('افزوده شد');
   }
@@ -854,80 +1127,132 @@ editSave.addEventListener('click', () => {
   render();
   closeEdit();
 });
-
-editDelete.addEventListener('click', () => {
+editDelete.addEventListener('click',() => {
   if (editingIndex < 0) return;
   if (!confirm('این محصول حذف شود؟')) return;
-  items.splice(editingIndex, 1);
+  items.splice(editingIndex,1);
   saveItems();
   render();
   closeEdit();
   toast('حذف شد');
 });
-
 /* Admin navigation */
-adminAddBtn.addEventListener('click', () => openEdit(-1));
-adminExitBtn.addEventListener('click', exitAdmin);
-
+adminAddBtn.addEventListener(
+  'click',
+  () => openEdit(-1)
+);
+adminExitBtn.addEventListener(
+  'click',
+  exitAdmin
+);
 /* Tap a row in admin mode → edit */
-listEl.addEventListener('click', e => {
+listEl.addEventListener('click',e => {
   if (!isAdmin) return;
-  const row = e.target.closest('.row');
+  const row =
+    e.target.closest('.row');
   if (!row) return;
-  const idx = Number(row.dataset.idx);
-  if (Number.isFinite(idx)) openEdit(idx);
+  const idx =
+    Number(row.dataset.idx);
+  if (Number.isFinite(idx)){
+    openEdit(idx);
+  }
 });
-
 /* ------------------------- Search (admin) ------------------------- */
-searchInput.addEventListener('input', () => {
+searchInput.addEventListener('input',() => {
   query = searchInput.value;
   render();
 });
-
 /* ------------------------- Import / Export ------------------------ */
-btnExport.addEventListener('click', () => {
-  const payload = JSON.stringify(items, null, 2);
-  const blob = new Blob([payload], { type:'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+btnExport.addEventListener('click',() => {
+  const payload =
+    JSON.stringify(items,null,2);
+  const blob =
+    new Blob(
+      [payload],
+      {type:'application/json'}
+    );
+  const url =
+    URL.createObjectURL(blob);
+  const a =
+    document.createElement('a');
   a.href = url;
-  a.download = 'prices.json';
+  a.download =
+    'prices.json';
   document.body.appendChild(a);
   a.click();
   a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setTimeout(
+    () => URL.revokeObjectURL(url),
+    1000
+  );
   toast('فایل خروجی ساخته شد');
 });
-
-btnImport.addEventListener('click', () => importFile.click());
-importFile.addEventListener('change', e => {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    try{
-      const parsed = JSON.parse(ev.target.result);
-      const arr = Array.isArray(parsed)
-        ? parsed
-        : (parsed.items || parsed.products || null);
-      if (!Array.isArray(arr)) throw new Error('bad format');
-      items = arr.map(normalizeItem);
-      saveItems();
-      render();
-      toast('فایل وارد شد');
-    }catch(err){
-      toast('فایل نامعتبر است', 'error');
-    }
-  };
-  reader.readAsText(file);
-  importFile.value = '';
-});
-
+btnImport.addEventListener(
+  'click',
+  () => importFile.click()
+);
+importFile.addEventListener(
+  'change',
+  e => {
+    const file =
+      e.target.files &&
+      e.target.files[0];
+    if (!file) return;
+    const reader =
+      new FileReader();
+    reader.onload = ev => {
+      try{
+        const parsed =
+          JSON.parse(ev.target.result);
+        const arr =
+          Array.isArray(parsed)
+            ? parsed
+            : (parsed.items ||
+               parsed.products ||
+               null);
+        if (!Array.isArray(arr)){
+          throw new Error('bad format');
+        }
+        items =
+          arr.map(normalizeItem);
+        saveItems();
+        render();
+        toast('فایل وارد شد');
+      }catch(err){
+        toast(
+          'فایل نامعتبر است',
+          'error'
+        );
+      }
+    };
+    reader.readAsText(file);
+    importFile.value = '';
+  }
+);
 /* ------------------------- Boot ----------------------------------- */
 function boot(){
   loadItems();
   updateDateTime();
-  setInterval(updateDateTime, 30 * 1000);
+  /*
+    فقط هر 30 ثانیه بررسی می‌شود.
+    خود DOM فقط در صورت تغییر دقیقه به‌روزرسانی می‌شود.
+  */
+  setInterval(
+    updateDateTime,
+    30 * 1000
+  );
+  /*
+    اگر Safari/PWA در پس‌زمینه بوده و دوباره باز شد،
+    ساعت بدون نیاز به refresh صفحه sync می‌شود.
+  */
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+      if (!document.hidden){
+        updateDateTime();
+      }
+    }
+  );
   render();
 }
 boot();
