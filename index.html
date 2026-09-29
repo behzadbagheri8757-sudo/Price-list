@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#F2F2F7">
+<meta name="theme-color" content="#FAF3E2">
 <meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -13,8 +13,11 @@
 <style>
 :root{
   --bg:#F2F2F7;
+  --header-bg:#FAF3E2;
+  --header-border:rgba(148,107,20,.18);
   --surface:#FFFFFF;
   --fill:#EFEFF4;
+  --fill-2:#E5E5EA;
   --text:#1C1C1E;
   --text-2:#6E6E73;
   --text-3:#AEAEB2;
@@ -60,19 +63,27 @@ input{
   -webkit-appearance:none;
   appearance:none
 }
-/* ---------- Customer header ---------- */
-.app-header{
+
+/* ---------- Sticky top ---------- */
+.sticky-top{
   position:-webkit-sticky;
   position:sticky;
   top:0;
   z-index:50;
-  padding:calc(env(safe-area-inset-top,0px) + 13px) 20px 13px;
+}
+
+/* ---------- Customer header (warm cream) ---------- */
+.app-header{
+  background:var(--header-bg);
+  border-bottom:.5px solid var(--header-border);
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 20px 14px;
   text-align:center;
-  background:#F7F7FA;
-  border-bottom:.5px solid var(--sep);
   user-select:none;
   -webkit-user-select:none;
   -webkit-touch-callout:none;
+}
+.sticky-top.admin-active .app-header{
+  border-bottom:none;
 }
 .header-brand{
   font-size:19px;
@@ -91,29 +102,121 @@ input{
 .header-datetime{
   font-size:12px;
   font-weight:400;
-  color:#8E8E93;
+  color:#8A7A5A;
   margin-top:7px;
   letter-spacing:0;
   font-variant-numeric:tabular-nums;
 }
+
+/* ---------- Admin bar (top controls) ---------- */
+.admin-bar{
+  background:var(--surface);
+  border-bottom:.5px solid var(--sep);
+  padding:6px 12px 10px;
+}
+.admin-bar[hidden]{
+  display:none
+}
+.admin-row1{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  height:40px;
+}
+.nav-btn{
+  color:var(--blue);
+  font-size:15.5px;
+  font-weight:400;
+  padding:6px 8px;
+  border-radius:8px;
+}
+.nav-btn:active{
+  background:rgba(10,132,255,.1)
+}
+.admin-title{
+  flex:1;
+  text-align:center;
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
+}
+.admin-row2{
+  position:relative;
+  margin:4px 0 8px;
+}
+.search-input{
+  width:100%;
+  height:36px;
+  border-radius:10px;
+  background:var(--fill);
+  border:none;
+  padding:0 34px 0 12px;
+  font-size:15px;
+  color:var(--text);
+  outline:none;
+}
+.search-input::placeholder{
+  color:var(--text-3)
+}
+.search-icon{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--text-3);
+  pointer-events:none;
+}
+.admin-row3{
+  display:flex;
+  gap:8px;
+}
+.admin-action{
+  flex:1;
+  padding:9px 12px;
+  border-radius:10px;
+  background:var(--fill);
+  color:var(--text);
+  font-size:13.5px;
+  font-weight:500;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.admin-action:active{
+  background:var(--fill-2)
+}
+
 /* ---------- Lists ---------- */
 .list{
   max-width:560px;
   margin:0 auto;
-  padding:0 0 calc(env(safe-area-inset-bottom,0px) + 40px);
+  padding:14px 0 calc(env(safe-area-inset-bottom,0px) + 40px);
 }
 .category{
   margin-top:24px
 }
 .category:first-child{
-  margin-top:6px
+  margin-top:4px
+}
+.cat-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding-inline:30px 20px;
+  padding-block:0 7px;
+  min-height:22px;
 }
 .cat-title{
   font-size:12.5px;
   font-weight:500;
   color:var(--text-2);
-  padding:0 30px 7px;
   letter-spacing:0;
+}
+.cat-reorder{
+  display:inline-flex;
+  gap:4px;
 }
 .cat-list{
   list-style:none;
@@ -125,8 +228,7 @@ input{
 .row{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:14px;
+  gap:12px;
   padding:13px 18px;
   min-height:56px;
   position:relative;
@@ -179,113 +281,40 @@ input{
   font-weight:500;
   color:var(--text-2)
 }
-.chevron{
+
+/* ---------- Reorder controls ---------- */
+.row-reorder{
   flex-shrink:0;
-  color:var(--text-3);
-  display:inline-flex;
-  align-items:center;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
 }
+.reorder-btn{
+  width:26px;
+  height:22px;
+  display:grid;
+  place-items:center;
+  background:var(--fill);
+  color:var(--text-2);
+  border-radius:6px;
+  padding:0;
+}
+.reorder-btn:active:not([disabled]){
+  background:var(--fill-2);
+  color:var(--text);
+}
+.reorder-btn[disabled]{
+  opacity:.28;
+  cursor:default;
+}
+
 .empty{
   text-align:center;
   color:var(--text-2);
   padding:60px 24px;
   font-size:14px;
 }
-/* ---------- Admin nav ---------- */
-.admin-nav{
-  position:sticky;
-  top:0;
-  z-index:20;
-  padding:calc(env(safe-area-inset-top,0px) + 8px) 14px 8px;
-  background:rgba(242,242,247,.88);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:.5px solid var(--sep);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  max-width:100%;
-}
-.admin-nav[hidden]{
-  display:none
-}
-.nav-btn{
-  color:var(--blue);
-  font-size:15.5px;
-  font-weight:400;
-  padding:6px 8px;
-  border-radius:8px;
-}
-.nav-btn:active{
-  background:rgba(10,132,255,.1)
-}
-.nav-title{
-  flex:1;
-  text-align:center;
-  font-size:15px;
-  font-weight:600;
-  color:var(--text);
-}
-/* ---------- Search ---------- */
-.search-wrap{
-  padding:6px 14px 8px;
-  max-width:560px;
-  margin:0 auto;
-}
-.search-wrap[hidden]{
-  display:none
-}
-.search-input{
-  width:100%;
-  height:36px;
-  border-radius:10px;
-  background:var(--fill);
-  border:none;
-  padding:0 34px 0 12px;
-  font-size:15px;
-  color:var(--text);
-  outline:none;
-}
-.search-input::placeholder{
-  color:var(--text-3)
-}
-.search-icon{
-  position:absolute;
-  right:26px;
-  top:50%;
-  transform:translateY(-50%);
-  color:var(--text-3);
-  pointer-events:none;
-}
-/* ---------- Admin footer actions ---------- */
-.admin-footer{
-  max-width:560px;
-  margin:24px auto 0;
-  padding:0 14px;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-}
-.admin-footer[hidden]{
-  display:none
-}
-.footer-btn{
-  flex:1;
-  padding:12px 16px;
-  border-radius:12px;
-  background:var(--surface);
-  color:var(--text);
-  font-size:14px;
-  font-weight:500;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  border:.5px solid var(--sep);
-}
-.footer-btn:active{
-  background:var(--fill)
-}
+
 /* ---------- Overlays / Sheets ---------- */
 .overlay{
   position:fixed;
@@ -338,6 +367,7 @@ input{
   text-align:center;
   margin-bottom:20px;
 }
+
 /* ---------- PIN ---------- */
 .pin-dots{
   display:flex;
@@ -406,6 +436,7 @@ input{
   font-size:15px;
   padding:16px 0 4px;
 }
+
 /* ---------- Edit sheet ---------- */
 .sheet-head{
   display:flex;
@@ -483,6 +514,7 @@ input{
 .delete-btn[hidden]{
   display:none
 }
+
 /* ---------- Toast ---------- */
 .toast{
   position:fixed;
@@ -508,6 +540,7 @@ input{
 .toast.error{
   background:rgba(255,59,48,.96)
 }
+
 /* ---------- Loading ---------- */
 .loading{
   text-align:center;
@@ -515,12 +548,13 @@ input{
   color:var(--text-2);
   font-size:14px;
 }
+
 @media (max-width:380px){
   .header-brand{
     font-size:17px
   }
   .row{
-    padding:12px 15px
+    padding:12px 14px
   }
   .row-name{
     font-size:15.5px
@@ -528,127 +562,152 @@ input{
   .price-num{
     font-size:16.5px
   }
+  .reorder-btn{
+    width:24px
+  }
 }
 </style>
 </head>
 <body>
-<!-- ============== CUSTOMER VIEW ============== -->
+
+<!-- ============== CUSTOMER VIEW (root container) ============== -->
 <div id="customerView">
-  <header class="app-header" id="appHeader">
-    <h1 class="header-brand">حبوبات و خشکبار باقری</h1>
-    <div class="header-subtitle">لیست قیمت</div>
-    <div class="header-datetime" id="dateTime">—</div>
-  </header>
+
+  <!-- Sticky top: header + admin bar -->
+  <div class="sticky-top" id="stickyTop">
+    <header class="app-header" id="appHeader">
+      <h1 class="header-brand">حبوبات و خشکبار باقری</h1>
+      <div class="header-subtitle">لیست قیمت</div>
+      <div class="header-datetime" id="dateTime">—</div>
+    </header>
+
+    <div class="admin-bar" id="adminBar" hidden>
+      <div class="admin-row1">
+        <button class="nav-btn" id="adminExit">پایان</button>
+        <div class="admin-title">مدیریت لیست</div>
+        <button class="nav-btn" id="adminAdd">افزودن</button>
+      </div>
+      <div class="admin-row2">
+        <input type="search" id="searchInput" class="search-input" placeholder="جستجو…">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m20 20-3.5-3.5"/>
+        </svg>
+      </div>
+      <div class="admin-row3">
+        <button class="admin-action" id="btnImport">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <path d="M7 9l5 5 5-5"/>
+            <path d="M12 14V3"/>
+          </svg>
+          ورود فایل
+        </button>
+        <button class="admin-action" id="btnExport">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <path d="M17 8l-5-5-5 5"/>
+            <path d="M12 3v12"/>
+          </svg>
+          خروجی فایل
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product list -->
   <main class="list" id="list" aria-live="polite">
     <div class="loading">در حال بارگذاری…</div>
   </main>
+
 </div>
-<!-- ============== ADMIN NAV ============== -->
-<div class="admin-nav" id="adminNav" hidden>
-  <button class="nav-btn" id="adminExit">پایان</button>
-  <div class="nav-title">مدیریت لیست</div>
-  <button class="nav-btn" id="adminAdd">افزودن</button>
-</div>
-<div class="search-wrap" id="searchWrap" hidden style="position:relative">
-  <input type="search" id="searchInput" class="search-input" placeholder="جستجو…">
-  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="7"/>
-    <path d="m20 20-3.5-3.5"/>
-  </svg>
-</div>
-<div class="admin-footer" id="adminFooter" hidden>
-  <button class="footer-btn" id="btnImport">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <path d="M7 9l5 5 5-5"/>
-      <path d="M12 14V3"/>
-    </svg>
-    ورود فایل
-  </button>
-  <button class="footer-btn" id="btnExport">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <path d="M17 8l-5-5-5 5"/>
-      <path d="M12 3v12"/>
-    </svg>
-    خروجی فایل
-  </button>
-</div>
+
 <input type="file" id="importFile" accept="application/json,.json" hidden>
+
 <!-- ============== PIN SHEET ============== -->
 <div class="overlay" id="pinOverlay">
   <div class="sheet" role="dialog" aria-modal="true">
     <div class="sheet-handle"></div>
-<h2 class="sheet-title">ورود به حالت مدیریت</h2>
-<p class="sheet-sub">رمز چهار رقمی را وارد کنید</p>
-<div class="pin-dots" id="pinDots">
-  <span class="pin-dot"></span>
-  <span class="pin-dot"></span>
-  <span class="pin-dot"></span>
-  <span class="pin-dot"></span>
-</div>
-<div class="pin-error" id="pinError"></div>
-<div class="keypad" id="keypad">
-  <button class="key" data-k="1">۱</button>
-  <button class="key" data-k="2">۲</button>
-  <button class="key" data-k="3">۳</button>
-  <button class="key" data-k="4">۴</button>
-  <button class="key" data-k="5">۵</button>
-  <button class="key" data-k="6">۶</button>
-  <button class="key" data-k="7">۷</button>
-  <button class="key" data-k="8">۸</button>
-  <button class="key" data-k="9">۹</button>
-  <button class="key" data-k="" aria-hidden="true" style="visibility:hidden"></button>
-  <button class="key" data-k="0">۰</button>
-  <button class="key del" data-k="del" aria-label="حذف">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 5H9L3 12l6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/>
-      <path d="m14 9-6 6M8 9l6 6"/>
-    </svg>
-  </button>
-</div>
-<button class="pin-cancel" id="pinCancel">انصراف</button>
+    <h2 class="sheet-title">ورود به حالت مدیریت</h2>
+    <p class="sheet-sub">رمز چهار رقمی را وارد کنید</p>
+    <div class="pin-dots" id="pinDots">
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+      <span class="pin-dot"></span>
+    </div>
+    <div class="pin-error" id="pinError"></div>
+    <div class="keypad" id="keypad">
+      <button class="key" data-k="1">۱</button>
+      <button class="key" data-k="2">۲</button>
+      <button class="key" data-k="3">۳</button>
+      <button class="key" data-k="4">۴</button>
+      <button class="key" data-k="5">۵</button>
+      <button class="key" data-k="6">۶</button>
+      <button class="key" data-k="7">۷</button>
+      <button class="key" data-k="8">۸</button>
+      <button class="key" data-k="9">۹</button>
+      <button class="key" data-k="" aria-hidden="true" style="visibility:hidden"></button>
+      <button class="key" data-k="0">۰</button>
+      <button class="key del" data-k="del" aria-label="حذف">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 5H9L3 12l6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/>
+          <path d="m14 9-6 6M8 9l6 6"/>
+        </svg>
+      </button>
+    </div>
+    <button class="pin-cancel" id="pinCancel">انصراف</button>
   </div>
 </div>
+
 <!-- ============== EDIT SHEET ============== -->
 <div class="overlay" id="editOverlay">
   <div class="sheet" role="dialog" aria-modal="true">
-<div class="sheet-handle"></div>
-<div class="sheet-head">
-  <button class="sheet-action" id="editCancel">انصراف</button>
-  <h2 id="editTitle">افزودن محصول</h2>
-  <button class="sheet-action strong" id="editSave">ذخیره</button>
-</div>
-<form class="form" id="editForm" autocomplete="off">
-  <label for="fName">نام محصول</label>
-  <input id="fName" type="text" enterkeyhint="done">
-  <label for="fPrice">قیمت (تومان)</label>
-  <input id="fPrice" class="price-input" type="text" inputmode="numeric" enterkeyhint="done" placeholder="۰">
-  <label for="fUnit">واحد</label>
-  <input id="fUnit" type="text" placeholder="مثال: کیلوگرم" enterkeyhint="done">
-  <label for="fCategory">دسته‌بندی</label>
-  <input id="fCategory" type="text" list="categoryList" enterkeyhint="done">
-  <datalist id="categoryList"></datalist>
-  <label for="fDesc">توضیحات (اختیاری)</label>
-  <input id="fDesc" type="text" enterkeyhint="done">
-  <button type="button" class="delete-btn" id="editDelete" hidden>
-    حذف محصول
-  </button>
-</form>
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <button class="sheet-action" id="editCancel">انصراف</button>
+      <h2 id="editTitle">افزودن محصول</h2>
+      <button class="sheet-action strong" id="editSave">ذخیره</button>
+    </div>
+    <form class="form" id="editForm" autocomplete="off">
+      <label for="fName">نام محصول</label>
+      <input id="fName" type="text" enterkeyhint="done">
+
+      <label for="fPrice">قیمت (تومان)</label>
+      <input id="fPrice" class="price-input" type="text" inputmode="numeric" enterkeyhint="done" placeholder="۰">
+
+      <label for="fUnit">واحد</label>
+      <input id="fUnit" type="text" placeholder="مثال: کیلوگرم" enterkeyhint="done">
+
+      <label for="fCategory">دسته‌بندی</label>
+      <input id="fCategory" type="text" list="categoryList" enterkeyhint="done">
+      <datalist id="categoryList"></datalist>
+
+      <label for="fDesc">توضیحات (اختیاری)</label>
+      <input id="fDesc" type="text" enterkeyhint="done">
+
+      <button type="button" class="delete-btn" id="editDelete" hidden>حذف محصول</button>
+    </form>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
 /* =====================================================================
    BAGHERI PRICE LIST — single-file app
-   Data source of truth on device: localStorage[STORAGE_KEY]
+   Source of truth on device: localStorage
+     - pricelist_items_v1          : array of product objects
+     - pricelist_category_order_v1 : array of category names
    ===================================================================== */
-const STORAGE_KEY = 'pricelist_items_v1';
-const ADMIN_PIN   = '1234';
-const CATEGORY_ORDER = ['حبوبات', 'خشکبار', 'کشمش'];
+
+const STORAGE_KEY          = 'pricelist_items_v1';
+const CATEGORY_ORDER_KEY   = 'pricelist_category_order_v1';
+const ADMIN_PIN            = '1234';
+const DEFAULT_CATEGORY_ORDER = ['حبوبات', 'خشکبار', 'کشمش'];
+
 /* -------- Seed data (initial content only; not logic) ------------- */
 const SEED = [
-  /* حبوبات */
   { name:'لوبیا چیتی زنجان', category:'حبوبات', unit:'کیلوگرم', price:394000, description:'' },
   { name:'لوبیا قرمز',        category:'حبوبات', unit:'کیلوگرم', price:332000, description:'' },
   { name:'لوبیا سفید',        category:'حبوبات', unit:'کیلوگرم', price:335000, description:'' },
@@ -658,9 +717,7 @@ const SEED = [
   { name:'لپه آذرشهر',        category:'حبوبات', unit:'کیلوگرم', price:279000, description:'' },
   { name:'لوبیا کشاورزی',     category:'حبوبات', unit:'کیلوگرم', price:408000, description:'' },
   { name:'سویا فلّه سبحان',   category:'حبوبات', unit:'کیلوگرم', price:242000, description:'' },
-  /* کشمش */
-  { name:'کشمش پلویی',        category:'کشمش', unit:'کارتن ۹ کیلویی', price:4790000, description:'' },
-  /* خشکبار */
+  { name:'کشمش پلویی',        category:'کشمش',  unit:'کارتن ۹ کیلویی', price:4790000, description:'' },
   { name:'ذرت پفیلا برزیلی',  category:'خشکبار', unit:'کیلوگرم', price:305000, description:'' },
   { name:'زرشک پفکی',         category:'خشکبار', unit:'کیلوگرم', price:839000, description:'' },
   { name:'مغز گردو صبحانه',   category:'خشکبار', unit:'کیلوگرم', price:1230000, description:'' },
@@ -670,21 +727,24 @@ const SEED = [
   { name:'تخمه دورسفید ویژه', category:'خشکبار', unit:'کیلوگرم', price:650000, description:'' },
   { name:'تخمه کدو نمکی',     category:'خشکبار', unit:'کیلوگرم', price:840000, description:'' }
 ];
+
 /* ------------------------- State ---------------------------------- */
-let items = [];
+let items = [];               /* array of {name, category, unit, price, description} */
+let categoryOrder = [];       /* array of category names, in display order */
 let isAdmin = false;
 let editingIndex = -1;
 let query = '';
 let pinBuffer = '';
+
 /* ------------------------- DOM refs ------------------------------- */
-const $ = s => document.querySelector(s);
+const $  = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
+
 const listEl        = $('#list');
 const dateTimeEl    = $('#dateTime');
 const appHeader     = $('#appHeader');
-const adminNav      = $('#adminNav');
-const adminFooter   = $('#adminFooter');
-const searchWrap    = $('#searchWrap');
+const stickyTop     = $('#stickyTop');
+const adminBar      = $('#adminBar');
 const searchInput   = $('#searchInput');
 const adminAddBtn   = $('#adminAdd');
 const adminExitBtn  = $('#adminExit');
@@ -709,9 +769,11 @@ const fCategory     = $('#fCategory');
 const fDesc         = $('#fDesc');
 const categoryList  = $('#categoryList');
 const toastEl       = $('#toast');
+
 /* ------------------------- Utilities ------------------------------ */
 const FA = '۰۱۲۳۴۵۶۷۸۹';
 const AR = '٠١٢٣٤٥٦٧٨٩';
+
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, c => (
     {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
@@ -749,54 +811,65 @@ function formatPriceInput(str){
   if (!d) return '';
   return toFaDigits(Number(d).toLocaleString('en-US'));
 }
+
 /* ------------------------- Toast ---------------------------------- */
 let toastTimer;
-function toast(msg,type=''){
+function toast(msg, type=''){
   toastEl.textContent = msg;
   toastEl.className = 'toast show' + (type ? ' ' + type : '');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(
-    () => toastEl.classList.remove('show'),
-    2200
-  );
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
 }
+
 /* ------------------------- Date & time ---------------------------- */
-/*
-   ساعت فقط یک بار در شروع نمایش داده می‌شود و سپس هر 30 ثانیه
-   وضعیت دقیقه را بررسی می‌کند.
-   Intl formatterها فقط یک بار ساخته می‌شوند.
-*/
-const dateFmt = new Intl.DateTimeFormat('fa-IR',{
-  weekday:'long',
-  day:'numeric',
-  month:'long',
-  year:'numeric'
+/* Formatters are created once and reused on every tick. */
+const dateFmt = new Intl.DateTimeFormat('fa-IR', {
+  day:'numeric', month:'long', year:'numeric'
 });
-const timeFmt = new Intl.DateTimeFormat('fa-IR',{
-  hour:'2-digit',
-  minute:'2-digit',
-  hour12:false
+const timeFmt = new Intl.DateTimeFormat('fa-IR', {
+  hour:'2-digit', minute:'2-digit', hour12:false
 });
 let lastMinuteKey = '';
+
 function updateDateTime(){
   try{
-    const d = new Date();
-    const minuteKey =
-      d.getFullYear() + '-' +
-      d.getMonth() + '-' +
-      d.getDate() + '-' +
-      d.getHours() + '-' +
-      d.getMinutes();
-    if (minuteKey === lastMinuteKey) return;
-    lastMinuteKey = minuteKey;
+    const now = new Date();
+    const key =
+      now.getFullYear() + '-' +
+      now.getMonth()    + '-' +
+      now.getDate()     + '-' +
+      now.getHours()    + '-' +
+      now.getMinutes();
+    if (key === lastMinuteKey) return;
+    lastMinuteKey = key;
     dateTimeEl.textContent =
-      dateFmt.format(d) + ' • ' + timeFmt.format(d);
+      dateFmt.format(now) + ' • ' + timeFmt.format(now);
   }catch(e){
-    dateTimeEl.textContent =
-      new Date().toLocaleString('fa-IR');
+    dateTimeEl.textContent = new Date().toLocaleString('fa-IR');
   }
 }
+
+/* Fire exactly at each minute boundary — no continuous interval. */
+function scheduleClockUpdate(){
+  const now = new Date();
+  const ms = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+  setTimeout(() => {
+    updateDateTime();
+    scheduleClockUpdate();
+  }, ms);
+}
+
 /* ------------------------- Persistence ---------------------------- */
+function normalizeItem(x){
+  return {
+    name:        String(x.name || '').trim(),
+    category:    String(x.category || '').trim() || 'سایر',
+    unit:        String(x.unit || '').trim(),
+    price:       Number(x.price) || 0,
+    description: String(x.description || '').trim()
+  };
+}
+
 function loadItems(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -807,121 +880,232 @@ function loadItems(){
         return;
       }
     }
-  }catch(e){
-    /* fall through */
-  }
+  }catch(e){ /* fall through */ }
   items = SEED.map(normalizeItem);
   saveItems();
 }
-function normalizeItem(x){
-  return {
-    name:String(x.name || '').trim(),
-    category:String(x.category || '').trim() || 'سایر',
-    unit:String(x.unit || '').trim(),
-    price:Number(x.price) || 0,
-    description:String(x.description || '').trim()
-  };
-}
+
 function saveItems(){
   try{
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(items)
-    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }catch(e){
     toast('ذخیره‌سازی ناموفق','error');
   }
 }
+
+function loadCategoryOrder(){
+  try{
+    const raw = localStorage.getItem(CATEGORY_ORDER_KEY);
+    if (raw){
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)){
+        categoryOrder = parsed.map(String);
+      }
+    }
+  }catch(e){ /* fall through */ }
+  if (!categoryOrder.length){
+    categoryOrder = DEFAULT_CATEGORY_ORDER.slice();
+  }
+  reconcileCategoryOrder();
+}
+
+function saveCategoryOrder(){
+  try{
+    localStorage.setItem(CATEGORY_ORDER_KEY, JSON.stringify(categoryOrder));
+  }catch(e){}
+}
+
+/* Ensure any category present in items is represented in categoryOrder.
+   New categories are appended at the end so user-chosen order is preserved. */
+function reconcileCategoryOrder(){
+  const present = new Set(items.map(i => i.category || 'سایر'));
+  present.forEach(c => {
+    if (!categoryOrder.includes(c)) categoryOrder.push(c);
+  });
+}
+
 /* ------------------------- Rendering ------------------------------ */
+function matchesQuery(it, q){
+  return normalize(it.name).includes(q) ||
+         normalize(it.category).includes(q) ||
+         normalize(it.description).includes(q);
+}
+
 function render(){
-  const catRank = c => {
-    const i = CATEGORY_ORDER.indexOf(c);
-    return i === -1 ? 999 : i;
-  };
+  reconcileCategoryOrder();
+
   const q = normalize(query);
-  const visible = q
-    ? items.filter(it =>
-        normalize(it.name).includes(q) ||
-        normalize(it.category).includes(q) ||
-        normalize(it.description).includes(q)
-      )
-    : items;
-  if (!visible.length){
+
+  /* Group items by category, preserving the flat array order. */
+  const groups = new Map();   /* category -> [{ item, flatIdx }] */
+  items.forEach((it, idx) => {
+    if (q && !matchesQuery(it, q)) return;
+    const c = it.category || 'سایر';
+    if (!groups.has(c)) groups.set(c, []);
+    groups.get(c).push({ item: it, flatIdx: idx });
+  });
+
+  if (!groups.size){
     listEl.innerHTML =
-      `<div class="empty">${
-        q ? 'موردی یافت نشد' : 'لیست خالی است'
-      }</div>`;
+      `<div class="empty">${q ? 'موردی یافت نشد' : 'لیست خالی است'}</div>`;
+    updateCategoryDatalist();
     return;
   }
-  const groups = new Map();
-  visible.forEach(it => {
-    const c = it.category || 'سایر';
-    if (!groups.has(c)){
-      groups.set(c,[]);
-    }
-    groups.get(c).push(it);
-  });
-  const sortedCats = [...groups.keys()].sort((a,b) => {
-    const ra = catRank(a);
-    const rb = catRank(b);
+
+  /* Sort categories by the persistent user-chosen order. */
+  const cats = [...groups.keys()].sort((a, b) => {
+    const ia = categoryOrder.indexOf(a);
+    const ib = categoryOrder.indexOf(b);
+    const ra = ia === -1 ? 9999 : ia;
+    const rb = ib === -1 ? 9999 : ib;
     if (ra !== rb) return ra - rb;
-    return String(a).localeCompare(String(b),'fa');
+    return String(a).localeCompare(String(b), 'fa');
   });
+
   let html = '';
-  sortedCats.forEach(cat => {
-    html += `<section class="category">`;
-    html +=
-      `<h2 class="cat-title">${esc(cat)}</h2>`;
-    html += `<ul class="cat-list">`;
-    groups.get(cat).forEach(it => {
-      const idx = items.indexOf(it);
-      html += renderRow(it,idx);
-    });
-    html += `</ul></section>`;
+  cats.forEach((cat, catIdx) => {
+    html += renderCategory(cat, catIdx, cats, groups.get(cat));
   });
+
   listEl.innerHTML = html;
-  const allCats = [
-    ...new Set(
-      items.map(i => i.category).filter(Boolean)
-    )
-  ];
-  categoryList.innerHTML =
-    allCats
-      .map(c => `<option value="${esc(c)}">`)
-      .join('');
+  updateCategoryDatalist();
 }
-function renderRow(it,idx){
-  const adminCls = isAdmin ? ' row-admin' : '';
-  const chevron = isAdmin
-    ? `<span class="chevron" aria-hidden="true">
-         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-           <path d="M6 1 1.5 7 6 13"/>
-         </svg>
-       </span>`
-    : '';
+
+function updateCategoryDatalist(){
+  const allCats = [...new Set(items.map(i => i.category).filter(Boolean))];
+  categoryList.innerHTML = allCats
+    .map(c => `<option value="${esc(c)}">`)
+    .join('');
+}
+
+function renderCategory(cat, catIdx, allCats, entries){
+  const canCatUp   = catIdx > 0;
+  const canCatDown = catIdx < allCats.length - 1;
+
+  let catControls = '';
+  if (isAdmin){
+    catControls = `
+      <div class="cat-reorder">
+        <button class="reorder-btn" data-cat-move="up" data-cat="${esc(cat)}"
+          ${canCatUp ? '' : 'disabled'} aria-label="دسته به بالا">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+            stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8l3-3 3 3"/>
+          </svg>
+        </button>
+        <button class="reorder-btn" data-cat-move="down" data-cat="${esc(cat)}"
+          ${canCatDown ? '' : 'disabled'} aria-label="دسته به پایین">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+            stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 4l3 3 3-3"/>
+          </svg>
+        </button>
+      </div>`;
+  }
+
+  let rowsHtml = '';
+  entries.forEach((entry, i) => {
+    rowsHtml += renderRow(entry.item, entry.flatIdx, i, entries.length);
+  });
+
   return `
-    <li class="row${adminCls}" data-idx="${idx}">
+    <section class="category">
+      <div class="cat-header">
+        <h2 class="cat-title">${esc(cat)}</h2>
+        ${catControls}
+      </div>
+      <ul class="cat-list">
+        ${rowsHtml}
+      </ul>
+    </section>`;
+}
+
+function renderRow(it, idx, catPos, catCount){
+  const canUp   = catPos > 0;
+  const canDown = catPos < catCount - 1;
+
+  const controls = isAdmin ? `
+    <div class="row-reorder">
+      <button class="reorder-btn" data-move="up" data-idx="${idx}"
+        ${canUp ? '' : 'disabled'} aria-label="بالا">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+          stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8l3-3 3 3"/>
+        </svg>
+      </button>
+      <button class="reorder-btn" data-move="down" data-idx="${idx}"
+        ${canDown ? '' : 'disabled'} aria-label="پایین">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"
+          stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 4l3 3 3-3"/>
+        </svg>
+      </button>
+    </div>` : '';
+
+  return `
+    <li class="row" data-idx="${idx}">
       <div class="row-main">
         <div class="row-name">${esc(it.name || '—')}</div>
-        ${
-          it.unit
-            ? `<div class="row-unit">${esc(it.unit)}</div>`
-            : ''
-        }
+        ${it.unit ? `<div class="row-unit">${esc(it.unit)}</div>` : ''}
       </div>
       <div class="row-price">
         <span class="price-num">${formatPrice(it.price)}</span>
         <span class="price-unit">تومان</span>
       </div>
-      ${chevron}
+      ${controls}
     </li>`;
 }
+
+/* ------------------------- Reorder logic -------------------------- */
+function moveProduct(idx, dir){
+  const item = items[idx];
+  if (!item) return;
+  const cat = item.category || 'سایر';
+
+  /* Find nearest neighbor in the same category. */
+  let target = -1;
+  if (dir === -1){
+    for (let i = idx - 1; i >= 0; i--){
+      if ((items[i].category || 'سایر') === cat){ target = i; break; }
+    }
+  } else {
+    for (let i = idx + 1; i < items.length; i++){
+      if ((items[i].category || 'سایر') === cat){ target = i; break; }
+    }
+  }
+  if (target < 0) return;
+
+  /* Swap in the flat array — relative order inside each category is what
+     the customer sees, and the flat array is the single persistent source. */
+  const tmp = items[idx];
+  items[idx] = items[target];
+  items[target] = tmp;
+
+  saveItems();
+  render();
+}
+
+function moveCategory(cat, dir){
+  const idx = categoryOrder.indexOf(cat);
+  if (idx < 0) return;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= categoryOrder.length) return;
+  const tmp = categoryOrder[idx];
+  categoryOrder[idx] = categoryOrder[newIdx];
+  categoryOrder[newIdx] = tmp;
+  saveCategoryOrder();
+  render();
+}
+
 /* ------------------------- Admin mode ----------------------------- */
 function enterAdmin(){
   isAdmin = true;
-  adminNav.hidden = false;
-  adminFooter.hidden = false;
-  searchWrap.hidden = false;
+  adminBar.hidden = false;
+  stickyTop.classList.add('admin-active');
   render();
   toast('حالت مدیریت فعال شد');
 }
@@ -929,27 +1113,26 @@ function exitAdmin(){
   isAdmin = false;
   query = '';
   searchInput.value = '';
-  adminNav.hidden = true;
-  adminFooter.hidden = true;
-  searchWrap.hidden = true;
+  adminBar.hidden = true;
+  stickyTop.classList.remove('admin-active');
   render();
 }
+
 /* ------------------------- 5-tap secret --------------------------- */
 let tapCount = 0;
 let tapTimer = null;
-appHeader.addEventListener('click',() => {
+appHeader.addEventListener('click', () => {
   if (isAdmin) return;
   tapCount++;
   clearTimeout(tapTimer);
-  tapTimer = setTimeout(() => {
-    tapCount = 0;
-  },1600);
+  tapTimer = setTimeout(() => { tapCount = 0; }, 1600);
   if (tapCount >= 5){
     tapCount = 0;
     clearTimeout(tapTimer);
     openPinSheet();
   }
 });
+
 /* ------------------------- PIN sheet ------------------------------ */
 function openPinSheet(){
   pinBuffer = '';
@@ -964,14 +1147,9 @@ function closePinSheet(){
   renderPinDots();
 }
 function renderPinDots(){
-  const dots =
-    pinDotsEl.querySelectorAll('.pin-dot');
-  dots.forEach((d,i) =>
-    d.classList.toggle(
-      'filled',
-      i < pinBuffer.length
-    )
-  );
+  const dots = pinDotsEl.querySelectorAll('.pin-dot');
+  dots.forEach((d, i) =>
+    d.classList.toggle('filled', i < pinBuffer.length));
 }
 function pinAppend(digit){
   if (pinBuffer.length >= 4) return;
@@ -979,71 +1157,54 @@ function pinAppend(digit){
   pinErrorEl.textContent = '';
   renderPinDots();
   if (pinBuffer.length === 4){
-    setTimeout(checkPin,120);
+    setTimeout(checkPin, 120);
   }
 }
 function pinBackspace(){
   if (!pinBuffer.length) return;
-  pinBuffer =
-    pinBuffer.slice(0,-1);
+  pinBuffer = pinBuffer.slice(0, -1);
   renderPinDots();
 }
 function checkPin(){
   if (pinBuffer === ADMIN_PIN){
     closePinSheet();
-    setTimeout(enterAdmin,120);
-  }else{
+    setTimeout(enterAdmin, 120);
+  } else {
     pinDotsEl.classList.add('shake');
-    pinErrorEl.textContent =
-      'رمز نادرست است';
+    pinErrorEl.textContent = 'رمز نادرست است';
     setTimeout(() => {
       pinDotsEl.classList.remove('shake');
       pinBuffer = '';
       renderPinDots();
-    },420);
+    }, 420);
   }
 }
-keypad.addEventListener('click',e => {
-  const btn =
-    e.target.closest('.key');
+keypad.addEventListener('click', e => {
+  const btn = e.target.closest('.key');
   if (!btn) return;
   const k = btn.dataset.k;
-  if (k === 'del'){
-    pinBackspace();
-  }else if(k){
-    pinAppend(k);
-  }
+  if (k === 'del') pinBackspace();
+  else if (k) pinAppend(k);
 });
-pinCancel.addEventListener(
-  'click',
-  closePinSheet
-);
-pinOverlay.addEventListener('click',e => {
-  if (e.target === pinOverlay){
-    closePinSheet();
-  }
+pinCancel.addEventListener('click', closePinSheet);
+pinOverlay.addEventListener('click', e => {
+  if (e.target === pinOverlay) closePinSheet();
 });
+
 /* ------------------------- Edit sheet ----------------------------- */
 function openEdit(idx){
   editingIndex = idx;
   if (idx >= 0){
     const it = items[idx];
-    editTitle.textContent =
-      'ویرایش محصول';
-    fName.value =
-      it.name;
-    fPrice.value =
-      it.price ? formatPrice(it.price) : '';
-    fUnit.value =
-      it.unit || '';
-    fCategory.value =
-      it.category || '';
-    fDesc.value =
-      it.description || '';
+    editTitle.textContent = 'ویرایش محصول';
+    fName.value     = it.name;
+    fPrice.value    = it.price ? formatPrice(it.price) : '';
+    fUnit.value     = it.unit || '';
+    fCategory.value = it.category || '';
+    fDesc.value     = it.description || '';
     editDelete.hidden = false;
-  }else{
-    editTitle.textContent =
-      'افزودن محصول';
+  } else {
+    editTitle.textContent = 'افزودن محصول';
     editForm.reset();
     editDelete.hidden = true;
   }
@@ -1051,208 +1212,179 @@ function openEdit(idx){
   setTimeout(() => {
     if (idx >= 0){
       fPrice.focus();
-      try{
-        fPrice.setSelectionRange(
-          fPrice.value.length,
-          fPrice.value.length
-        );
-      }catch(e){}
-    }else{
+      try{ fPrice.setSelectionRange(fPrice.value.length, fPrice.value.length); }
+      catch(e){}
+    } else {
       fName.focus();
     }
-  },320);
+  }, 320);
 }
 function closeEdit(){
   editOverlay.classList.remove('open');
   editingIndex = -1;
 }
-editCancel.addEventListener(
-  'click',
-  closeEdit
-);
-editOverlay.addEventListener('click',e => {
-  if (e.target === editOverlay){
-    closeEdit();
-  }
+editCancel.addEventListener('click', closeEdit);
+editOverlay.addEventListener('click', e => {
+  if (e.target === editOverlay) closeEdit();
 });
+
 /* Live price formatting */
-fPrice.addEventListener('input',() => {
-  const formatted =
-    formatPriceInput(fPrice.value);
+fPrice.addEventListener('input', () => {
+  const formatted = formatPriceInput(fPrice.value);
   if (fPrice.value !== formatted){
-    const atEnd =
-      fPrice.selectionStart ===
-      fPrice.value.length;
+    const atEnd = fPrice.selectionStart === fPrice.value.length;
     fPrice.value = formatted;
     if (atEnd){
-      try{
-        fPrice.setSelectionRange(
-          formatted.length,
-          formatted.length
-        );
-      }catch(e){}
+      try{ fPrice.setSelectionRange(formatted.length, formatted.length); }
+      catch(e){}
     }
   }
 });
-editSave.addEventListener('click',() => {
-  const name =
-    fName.value.trim();
+
+editSave.addEventListener('click', () => {
+  const name = fName.value.trim();
   if (!name){
-    toast(
-      'نام محصول را وارد کنید',
-      'error'
-    );
+    toast('نام محصول را وارد کنید', 'error');
     fName.focus();
     return;
   }
+
   const data = {
     name,
-    category:
-      fCategory.value.trim() || 'سایر',
-    unit:
-      fUnit.value.trim(),
-    price:
-      parsePrice(fPrice.value),
-    description:
-      fDesc.value.trim()
+    category:    fCategory.value.trim() || 'سایر',
+    unit:        fUnit.value.trim(),
+    price:       parsePrice(fPrice.value),
+    description: fDesc.value.trim()
   };
+
   if (editingIndex >= 0){
     items[editingIndex] = data;
     toast('ذخیره شد');
-  }else{
+  } else {
     items.push(data);
     toast('افزوده شد');
   }
+  reconcileCategoryOrder();
   saveItems();
+  saveCategoryOrder();
   render();
   closeEdit();
 });
-editDelete.addEventListener('click',() => {
+
+editDelete.addEventListener('click', () => {
   if (editingIndex < 0) return;
   if (!confirm('این محصول حذف شود؟')) return;
-  items.splice(editingIndex,1);
+  items.splice(editingIndex, 1);
   saveItems();
   render();
   closeEdit();
   toast('حذف شد');
 });
+
 /* Admin navigation */
-adminAddBtn.addEventListener(
-  'click',
-  () => openEdit(-1)
-);
-adminExitBtn.addEventListener(
-  'click',
-  exitAdmin
-);
-/* Tap a row in admin mode → edit */
-listEl.addEventListener('click',e => {
-  if (!isAdmin) return;
-  const row =
-    e.target.closest('.row');
-  if (!row) return;
-  const idx =
-    Number(row.dataset.idx);
-  if (Number.isFinite(idx)){
-    openEdit(idx);
+adminAddBtn.addEventListener('click', () => openEdit(-1));
+adminExitBtn.addEventListener('click', exitAdmin);
+
+/* ------------------------- List click delegation ------------------ */
+listEl.addEventListener('click', e => {
+  /* Category reorder */
+  const catBtn = e.target.closest('[data-cat-move]');
+  if (catBtn && isAdmin && !catBtn.disabled){
+    e.preventDefault();
+    const cat = catBtn.dataset.cat;
+    const dir = catBtn.dataset.catMove === 'up' ? -1 : 1;
+    moveCategory(cat, dir);
+    return;
   }
+  /* Product reorder */
+  const moveBtn = e.target.closest('[data-move]');
+  if (moveBtn && isAdmin && !moveBtn.disabled){
+    e.preventDefault();
+    const idx = Number(moveBtn.dataset.idx);
+    const dir = moveBtn.dataset.move === 'up' ? -1 : 1;
+    moveProduct(idx, dir);
+    return;
+  }
+  /* Tap row → edit (admin only) */
+  if (!isAdmin) return;
+  const row = e.target.closest('.row');
+  if (!row) return;
+  const idx = Number(row.dataset.idx);
+  if (Number.isFinite(idx)) openEdit(idx);
 });
+
 /* ------------------------- Search (admin) ------------------------- */
-searchInput.addEventListener('input',() => {
+searchInput.addEventListener('input', () => {
   query = searchInput.value;
   render();
 });
+
 /* ------------------------- Import / Export ------------------------ */
-btnExport.addEventListener('click',() => {
-  const payload =
-    JSON.stringify(items,null,2);
-  const blob =
-    new Blob(
-      [payload],
-      {type:'application/json'}
-    );
-  const url =
-    URL.createObjectURL(blob);
-  const a =
-    document.createElement('a');
+btnExport.addEventListener('click', () => {
+  const payload = JSON.stringify(
+    { items, categoryOrder },
+    null, 2
+  );
+  const blob = new Blob([payload], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
   a.href = url;
-  a.download =
-    'prices.json';
+  a.download = 'prices.json';
   document.body.appendChild(a);
   a.click();
   a.remove();
-  setTimeout(
-    () => URL.revokeObjectURL(url),
-    1000
-  );
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
   toast('فایل خروجی ساخته شد');
 });
-btnImport.addEventListener(
-  'click',
-  () => importFile.click()
-);
-importFile.addEventListener(
-  'change',
-  e => {
-    const file =
-      e.target.files &&
-      e.target.files[0];
-    if (!file) return;
-    const reader =
-      new FileReader();
-    reader.onload = ev => {
-      try{
-        const parsed =
-          JSON.parse(ev.target.result);
-        const arr =
-          Array.isArray(parsed)
-            ? parsed
-            : (parsed.items ||
-               parsed.products ||
-               null);
-        if (!Array.isArray(arr)){
-          throw new Error('bad format');
-        }
-        items =
-          arr.map(normalizeItem);
-        saveItems();
-        render();
-        toast('فایل وارد شد');
-      }catch(err){
-        toast(
-          'فایل نامعتبر است',
-          'error'
-        );
+
+btnImport.addEventListener('click', () => importFile.click());
+importFile.addEventListener('change', e => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      let newItems = null;
+      let newCatOrder = null;
+
+      if (Array.isArray(parsed)){
+        /* Legacy format: bare array */
+        newItems = parsed;
+      } else if (parsed && typeof parsed === 'object'){
+        if (Array.isArray(parsed.items)) newItems = parsed.items;
+        else if (Array.isArray(parsed.products)) newItems = parsed.products;
+        if (Array.isArray(parsed.categoryOrder)) newCatOrder = parsed.categoryOrder;
       }
-    };
-    reader.readAsText(file);
-    importFile.value = '';
-  }
-);
+
+      if (!newItems) throw new Error('bad format');
+
+      items = newItems.map(normalizeItem);
+      if (newCatOrder){
+        categoryOrder = newCatOrder.map(String);
+      }
+      reconcileCategoryOrder();
+      saveItems();
+      saveCategoryOrder();
+      render();
+      toast('فایل وارد شد');
+    }catch(err){
+      toast('فایل نامعتبر است', 'error');
+    }
+  };
+  reader.readAsText(file);
+  importFile.value = '';
+});
+
 /* ------------------------- Boot ----------------------------------- */
 function boot(){
   loadItems();
+  loadCategoryOrder();
   updateDateTime();
-  /*
-    فقط هر 30 ثانیه بررسی می‌شود.
-    خود DOM فقط در صورت تغییر دقیقه به‌روزرسانی می‌شود.
-  */
-  setInterval(
-    updateDateTime,
-    30 * 1000
-  );
-  /*
-    اگر Safari/PWA در پس‌زمینه بوده و دوباره باز شد،
-    ساعت بدون نیاز به refresh صفحه sync می‌شود.
-  */
-  document.addEventListener(
-    'visibilitychange',
-    () => {
-      if (!document.hidden){
-        updateDateTime();
-      }
-    }
-  );
+  scheduleClockUpdate();
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateDateTime();
+  });
   render();
 }
 boot();
