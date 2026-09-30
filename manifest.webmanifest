@@ -1,12 +1,14 @@
 {
   "name": "لیست قیمت حبوبات و خشکبار باقری",
   "short_name": "باقری",
-  "start_url": ".",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "direction": "rtl",
+  "orientation": "portrait",
+  "dir": "rtl",
   "lang": "fa",
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
+  "background_color": "#F6F3EE",
+  "theme_color": "#F1EADC",
   "icons": [
     {
       "src": "icon-192.png",
@@ -18,7 +20,12 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ]
 }
